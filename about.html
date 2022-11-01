@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css" />
+    <!-- swipper -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <link rel="shortcut icon" href="img/logo_gold.png">
+    <title>Moringa :: Mercado saludable</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top custom-navbar">
+        <div class="container-fluid">
+            <div class="btn-mercado">
+                <img src="img/btn_mercado.png" alt="boton mercado">
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="container-fluid mb-2 mb-lg-0 d-flex justify-content-center">
+                    <ul class="navbar-nav d-flex justify-content-evenly">
+                        <li class="nav-item text">
+                            <a class="nav-link" href="index.html">INICIO</a>
+                        </li>
+                        <li class="nav-item text">
+                            <a class="nav-link" href="products.html">PRODUCTOS</a>
+                        </li>
+                        <li class="nav-item text active-router">
+                            <a class="nav-link" href="about.html">NOSOTROS</a>
+                        </li>
+                        <li class="nav-item text">
+                            <a class="nav-link" href="contact.html">CONTACTO</a>
+                        </li>
+                        <li class="nav-item text">
+                            <a class="nav-link" href="blog.html">BLOG</a>
+                        </li>
+                        <li class="input-item">
+                            <form id="search-form" class="search-form">
+                                <div class="input-group mb-2">
+                                    <input type="text" class="form-control" placeholder="Buscar producto ..." aria-label="Buscar producto ..."
+                                        aria-describedby="button-search" id="search-product-input" name="search-product-input">
+                                    <button class="btn btn-outline-secondary" type="submit" id="button-search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="contenedor_adds">
+        <div class="btn_cart-float">
+            <div onclick="loadProductsMarket()" class="icon-cart" id="icon_cart_click">
+                <img src="img/icon-cart.png" alt="">
+                <div class="number_products">
+                    <p> 0 </p>
+                </div>
+
+
+                <div class="cart">
+                    <div class="hide-cart" onclick="$('.cart').hide()">
+                        <p><i class="far fa-eye-slash"></i> Ocultar carrito</p>
+                    </div>
+                    <div class="list_products-cart" id="list_products_cart">
+                        <div class="no_products-cart">
+                            <h4>Sin productos</h4>
+                        </div>
+                    </div>
+
+                    <div class="total-cart">
+                        <div class="total_cart-info" id="total_cart">
+                        </div>
+                        <div class="total_cart-buttons">
+                            <button type="button" class="button-cart" id="btn_continue_market"
+                                onclick="window.open('cart.html')">
+                                Terminar compra
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a class="btn_wp-float" href="https://wa.me/573124540005" id="whatsapp_float" target="_blank">
+            <img src="img/icon-wp.png" alt="">
+        </a>
+    </div>
+
+    <section id="about-bg" class="about">
+        <div class="mx-5">
+            <h1>NOSOTROS</h1>
+            <p class="fs-3 text" id="about">
+                Por profesión y vocación siempre he estado al
+                cuidado de mi alimentación y de allí la importancia
+                de crear <b>Tienda Moringa</b>, un lugar que ha ido
+                evolucionando con el tiempo pero que siempre a
+                tenido un mismo objetivo; cambiar y cuidar los
+                hábitos de cada persona que nos visite. Acá les
+                mostramos más de mil opciones para darse
+                cuenta que <b>comer sano y rico</b> si es posible.
+            </p>
+        </div>
+    </section>
+
+    <section class="objetivos">
+        <div id="row-mision__about" class="row">
+            <div class="col-12 col-md-6 title mision">
+                <h1>MISIÓN</h1>
+            </div>
+            <div id="title-vision__about" class="col-12 col-md-6 title vision">
+                <h1>VISIÓN</h1>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-fluid">
+        <div id="texto-mision__about" class="row">
+            <div id="texto-oficial-mision__about" class="col-12 col-md-6 paragraph">
+                <p class="fs-4 text-center" id="mision">
+                    Tienda Moringa contribuye al <b>cambio cultural</b>,
+                    mostrando un estilo de vida ideal para las personas
+                    que tienen la iniciativa de ser mejores en uno de
+                    los aspectos de la vida: la alimentación. También
+                    apoyamos a todas las personas que llevan un
+                    proceso médico y le damos la alegría de encontrar
+                    todo lo que necesitan.
+
+                </p>
+            </div>
+            <div id="row-vision__about" class="col-12 col-md-6 paragraph">
+                <p class="fs-4 text-center" id="vision">
+                    Estamos proyectados a crecer en toda la región,
+                    queremos ser los <b>representantes del mercado
+                        saludable</b> en los llanos orientales (Meta, San José
+                    del Guaviare, Yopal).
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-me">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h1>Natalia Tabares</h1>
+                    <p class="fs-3 " id="history1">
+                        Empresaria disciplinada y dedicada amante del bienestar
+                        saludable. Mamá apasionada por la alimentación y el ejercicio
+                        donde florece una gran idea de mercado, crear una tienda de
+                        comida funcional que interactúa con la gente para compartir
+                        sus conocimientos creando conciencia <b><i>“Alimentarse saludable
+                                no es costoso”</i></b> Mantenerme es tarea de todos los días, con
+                        disciplina y sacrificios lo he logrado.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-me-history">
+        <p class="fs-3 "  id="history2">
+            Hace muchos años decidí llevar un estilo de vida saludable, me
+            apasioné por aprender de la comida y ejercitarme todos los días
+            para mantenerme. Cuando uno quiere tener mente y cuerpo sano
+            hace todo posible… Lo llaman suerte, pero es <b>CONSTANCIA</b>. Lo
+            llaman casualidad, pero es <b>DISCIPLINA</b>. Lo llaman genética, pero
+            es <b>SACRIFICIO</b>. Tu entrenas y trabajas… Ellos hablan y duermen.
+            Los invito a seguir @tiendamoringa <b><i>“Donde comer sano no es
+                    costoso”</i></b> Natalia Tabares.
+        </p>
+    </section>
+
+    <footer>
+        <section class="container-fluid">
+          <div class="d-flex align-items-center methodsPay">
+            <h5 class="mb-0">Medios de pago</h5>
+            <div class="methodsPay-image">
+              <img src="img/metodos_pago.png" alt="">
+            </div>
+          </div>
+        </section>
+        <section id="container-footer__blog" class="container-fluid">
+          <div id="footer-blog" class="footer row">
+            <div class="col-12 col-md-2 menu-footer">
+              <p>MENÚ</p>
+              <ul>
+                <li ><a class="link__footer" href="index.html">INICIO</a></li>
+                <li><a class="link__footer" href="products.html">PRODUCTOS</a></li>
+                <li class="active"><a class="link__footer" href="about.html">NOSOTROS</a></li>
+                <li><a class="link__footer" href="contact.html">CONTACTO</a></li>
+                <li><a class="link__footer" href="blog.html">BLOG</a></li>
+              </ul>
+            </div>
+            <div id="cart-image__footer" class="col-12 col-md-2 banner-car d-flex justify-content-center">
+              <img src="img/car_dark.png" alt="Imágen carrito de compra en modo cafe oscuro" class="align-self-center">
+            </div>
+            <div id="column-blog__responsive" class="col-12 col-md banner-car d-flex">
+              <img id="img-logo__footer-blog" src="img/logo_moringa_dark.png" alt="Logo moringa en modo cafe oscuro" class="align-self-center">
+            </div>
+            <div id="column-blog__responsive" class="col-12 col-md contacto">
+              <p>INFORMACIÓN DE CONTACTO</p>
+              <ul>
+                <li><i class="fa-brands fa-whatsapp"></i>
+                  <p id="whatsapp_footer">&nbsp; </p>
+                </li>
+                <li><i class="fa-solid fa-location-dot"></i>
+                  <p id="address_footer">&nbsp; Cl. 27 #44-04, Villavicencio, Meta. El
+                    Buque</p>
+                </li>
+                <li><i class="fa-solid fa-envelope"></i>
+                  <p id="email_footer">&nbsp; moringaventasinternet@gmail.com</p>
+                </li>
+              </ul>
+            </div>
+            <div class="col-12 col-md-2 redes">
+              <ul>
+                <li><a href="https://www.instagram.com/tiendamoringa/" id="instagram_footer" target="_blank"><i
+                      class="fa-brands fa-instagram"></i>
+                    <p>tiendamoringa</p>
+                  </a>
+                </li>
+                <li><a href="https://www.facebook.com/tiendamoringavillavicencio" id="facebook_footer" target="_blank">
+                    <i class="fa-brands fa-facebook"></i>
+                    <p>Tienda Moringa</p>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </footer>
+    
+    <!-- swipper -->
+    <script src="js/all.js" type="text/javascript"></script>
+    <script src="js/jquery.js" type="text/javascript"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+        integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="js/request.js?v1" type="text/javascript"></script>
+    <script src="js/index.js?v1" type="text/javascript"></script>
+    <script src="js/gescon.js?v1" type="text/javascript"></script>
+
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <!-- swipper -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <!-- bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            loadProductsMarketCart()
+            loadProductsMarket(false)
+
+            showDataAbout()
+            showDataContact()
+        });
+    </script>
+</body>
+
+</html>
