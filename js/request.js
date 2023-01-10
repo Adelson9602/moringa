@@ -1,7 +1,7 @@
 // consultas "API" Tienda gesadmin
-// const URL_API = 'https://gesadmin.com.co/ges/moringa/config/tienda';
-const URL_API = 'http://192.168.0.210/Developed_Programming/97-Moringa/dev/gesadmin/config/tienda';
-const URL_API_GESCON= 'http://192.168.0.210/Developed_Programming/97-Moringa/dev/administracion/config/page';
+const URL_API = 'https://gesadmin.com.co/ges/moringa/config/tienda';
+//const URL_API = 'http://192.168.0.210/Developed_Programming/97-Moringa/dev/gesadmin/config/tienda';
+const URL_API_GESCON= 'https://tiendamoringa.com/administracion/config/page';
 
 const consultAllGroups = async () => {
   let headers = new Headers();

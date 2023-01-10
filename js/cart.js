@@ -62,12 +62,12 @@ $(document).ready(function () {
       }
 
     }else{
-      checkName();
-      checkNumberDocument();
-      checkPhone();
-      checkEmail();
-      checkAddress();
-      checkCity();
+        checkName();
+        checkNumberDocument();
+        checkPhone();
+        checkEmail();
+        checkAddress();
+        checkCity();
     }
   });
 });

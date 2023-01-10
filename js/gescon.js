@@ -1,4 +1,5 @@
-const URL_IMAGE_GESCON= "http://192.168.0.210/Developed_Programming/97-Moringa/dev/administracion/resources/assets"
+const URL_IMAGE_GESCON= "https://tiendamoringa.com/administracion/resources/assets"
+//const URL_IMAGE_GESCON= "http://192.168.0.210/Developed_Programming/97-Moringa/dev/administracion/resources/assets"
 
 const showDataAbout = async () => {
   let data = await consultInfoAbout();

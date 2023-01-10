@@ -1,8 +1,8 @@
 let Products_market = localStorage.getItem("Products_market")
   ? JSON.parse(localStorage.getItem("Products_market"))
   : [];
-const URL_IMAGE = "http://192.168.0.210/Developed_Programming/97-Moringa/dev/gesadmin/resources/assets/Items/";
-// const URL_IMAGE = "https://gesadmin.com.co/ges/moringa/resources/assets/Items/";
+//const URL_IMAGE = "http://192.168.0.210/Developed_Programming/97-Moringa/dev/gesadmin/resources/assets/Items/";
+const URL_IMAGE = "https://gesadmin.com.co/ges/moringa/resources/assets/Items/";
 
 
 
@@ -153,45 +153,47 @@ const consultInfoProduct = (id_product) => {
   let price =
     product.Price_Distributor > 0 ? product.Price_Distributor : product.Price;
 
-  $("#info_product").html(`<div class="product">
-                                    <div class="product-image">
-                                        <img src="${
-                                          URL_IMAGE + "" + product.Image
-                                        }" alt="imagen-producto">
-                                    </div>
-                                    <div class="product-info">
-                                        <h1>${product.Product}</h1> 
-                                        <p>$ ${MoneyFormart(price)} COP</p>
-                                        <div class="productInfo-cant">
-                                            <button type="button" class="button-cant" id="buttoCant-minus" onclick="modUnitsProduct('rem')"> - </button>
-                                            <input type="number" name="cant" id="cant" value="1" min="1"/>
-                                            <button type="button" class="button-cant" id="buttoCant-plus" onclick="modUnitsProduct('add')"> +</button>
-                                        </div>
-                                        <div class="productInfo-button">
-                                            <button type="button" class="button-cantAdd" onclick="addProductMarket(${
-                                              product.Id
-                                            }, $('#cant').val())"> 
-                                                <i class="fa-solid fa-cart-plus"></i> Añadir al carrito
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>`);
+  $("#info_product").html(`
+    <div class="product">
+        <div class="product-image">
+            <img src="${URL_IMAGE + "" + product.Image }" alt="imagen-producto">
+        </div>
+        <div class="product-info">
+            <h1>${product.Product}</h1> 
+            <p>$ ${MoneyFormart(price)} COP</p>
+            <div class="productInfo-cant">
+                <button type="button" class="button-cant" id="buttoCant-minus" onclick="modUnitsProduct('rem')"> - </button>
+                <input type="number" name="cant" id="cant" value="1" min="1"/>
+                <button type="button" class="button-cant" id="buttoCant-plus" onclick="modUnitsProduct('add')"> +</button>
+            </div>
+            <div class="productInfo-button">
+                <button type="button" class="button-cantAdd" onclick="addProductMarket(${
+                  product.Id
+                }, $('#cant').val())"> 
+                    <i class="fa-solid fa-cart-plus"></i> Añadir al carrito
+                </button>
+            </div>
+        </div>
+    </div>
+  `);
 };
 
-const loadProductsMarket = (show = true) => {
+const loadProductsMarket = (show) => {
   if (!Products_market) {
     return false;
   }
 
   $("#list_products_cart").html("");
+  if (show) {
+    $(".cart").css('right', '0');
+    $(".cart").css('display', 'block');
+    $("#icon_cart_click").attr("onclick", "loadProductsMarket(false)");
+  } else {
+    $(".cart").css('right', '-500px');
+    $("#icon_cart_click").attr("onclick", "loadProductsMarket(true)");
+  }
+
   if (Products_market.length > 0) {
-    if (show == true) {
-      $(".cart").css('right', '0');
-      $("#icon_cart_click").attr("onclick", "loadProductsMarket(false)");
-    } else {
-      $(".cart").css('right', '-500px');
-      $("#icon_cart_click").attr("onclick", "loadProductsMarket()");
-    }
 
     let total = 0;
     let subtotal = 0;
@@ -206,48 +208,46 @@ const loadProductsMarket = (show = true) => {
       total += Number(subtotal);
 
       totalCant += parseInt(product.Cant);
-      // <img src="${URL_IMAGE + "" + product.Image}" alt="">
 
-      $("#list_products_cart").append(
-        `
-                        <div class="product_cart">
-                            <div class="delete_product__cart" onclick="removeProductMarket(${i})">
-                                <i class="fas fa-times-circle"></i>
-                            </div>
-                            <div class="product_cart__image">
-                              <img src="${URL_IMAGE+''+product.Image}" alt="">
-                            </div>
-                            <div class="product_cart__info">
-                                <p>${product.Product}</p>
-                                <p class="price"><strong>Precio: </strong>$ ${MoneyFormart(price)}</p>
-                                <p class="cant"><strong>Cant: </strong>${product.Cant}</p>
-                            </div>
-                        </div>
-                    `
-      );
+      $("#list_products_cart").append(`
+        <div class="product_cart">
+            <div class="delete_product__cart" onclick="removeProductMarket(${i})">
+                <i class="fas fa-times-circle"></i>
+            </div>
+            <div class="product_cart__image">
+              <img src="${URL_IMAGE+''+product.Image}" alt="">
+            </div>
+            <div class="product_cart__info">
+                <p>${product.Product}</p>
+                <p class="price"><strong>Precio: </strong>$ ${MoneyFormart(price)}</p>
+                <p class="cant"><strong>Cant: </strong>${product.Cant}</p>
+            </div>
+        </div>
+      `);
     });
 
     $(".number_products").html(`<p>${totalCant}</p>`);
 
-    $("#total_cart").html(` <p class="total_cart__subtotal">Subtotal</p>
-                                    <p class="total_cart__price">$ ${MoneyFormart(
-                                      total
-                                    )} COP</p> `);
+    $("#total_cart").html(`
+      <p class="total_cart__subtotal">Subtotal</p>
+        <p class="total_cart__price">$ ${MoneyFormart(
+          total
+        )} COP
+      </p>
+    `);
     $("#btn_continue_market").show();
   } else {
     $(".number_products").html(`<p> 0 </p>`);
     $("#list_products_cart").html(`
-                <div class="no_products__cart">
-                    <h4>Sin productos</h4>
-                </div>`);
+      <div class="no_products__cart">
+          <h4>Sin productos</h4>
+      </div>
+    `);
 
-    $("#total_cart").html(
-      `
-                        <p class="total_cart__subtotal">Subtotal</p>
-                        <p class="total_cart__price">$ 0 COP</p>
-                    `
-    );
-
+    $("#total_cart").html(`
+      <p class="total_cart__subtotal">Subtotal</p>
+      <p class="total_cart__price">$ 0 COP</p>
+    `);
     $("#btn_continue_market").hide();
     $(".cart").hide();
   }
@@ -320,74 +320,62 @@ const loadProductsMarketCart = () => {
     let totalCant = 0;
 
     Products_market.forEach((product, i) => {
-      let price =
-        product.Price_Distributor > 0
-          ? product.Price_Distributor
-          : product.Price;
-
+      let price = product.Price_Distributor > 0 ? product.Price_Distributor : product.Price;
       subtotal = Number(price * product.Cant);
       total += Number(subtotal);
-
       totalCant += parseInt(product.Cant);
 
       $("#list_products_cart_total").append(`
-                    <div class="resumCart-item">
-                        <div class="itemCart-imgae">
-                            <img src="${URL_IMAGE + "" + product.Image}" alt="">
-                        </div>
-    
-                        <div class="itemCart-info">
-                            <h3> ${product.Name_Group}</h3>
-                            <p class="nameProduct"> ${product.Product}</p>
-                            <p class="priceProduct"> <strong>Precio:</strong> $ ${MoneyFormart(
-                              price
-                            )}</p>
-                            <p class="cantProduct"> 
-                                <label for="cant"><strong>Cant:</strong></label> 
-                                <input type="number" name="cant${
-                                  product.Id
-                                }" id="cant${product.Id}" value="${
-        product.Cant
-      }" min="1" onchange="updateProductMarketCant(${product.Id}, this.value)"/>
-                            </p>
-                            <p> <strong>Total:</strong> $ ${MoneyFormart(
-                              subtotal
-                            )}</p>
-                        </div>
+        <div class="resumCart-item">
+          <div class="itemCart-imgae"><img src="${URL_IMAGE + "" + product.Image}" alt=""></div>
+          <div class="itemCart-info">
+            <h3> ${product.Name_Group}</h3>
+            <p class="nameProduct"> ${product.Product}</p>
+            <p class="priceProduct"> <strong>Precio:</strong> $ ${MoneyFormart(price)}</p>
+            <p class="cantProduct"> 
+              <label for="cant"><strong>Cant:</strong></label> 
+              <input type="number" name="cant${product.Id}" id="cant${product.Id}" value="${product.Cant}" min="1" onchange="updateProductMarketCant(${product.Id}, this.value)"/>
+            </p>
+            <p><strong>Total:</strong> $ ${MoneyFormart(subtotal)}</p>
+          </div>
 
-                        <div class="itemCart-delete" onclick="removeProductMarket(${i}, true)">
-                         <i class="fas fa-times-circle"></i>
-                        </div>
-                    </div>`);
+          <div class="itemCart-delete" onclick="removeProductMarket(${i}, true)">
+            <i class="fas fa-times-circle"></i>
+          </div>
+        </div>
+      `);
     });
 
-    $("#subtotal_info").html(`  <div class="infoSubtotal-text">
-                                            <p><strong>Total Productos</strong></p>
-                                            <p>${totalCant}</p>
-                                        </div>
+    $("#subtotal_info").html(`
+      <div class="infoSubtotal-text">
+          <p><strong>Total Productos</strong></p>
+          <p>${totalCant}</p>
+      </div>
 
-                                        <div class="infoSubtotal-text">
-                                            <p><strong>Subtotal</strong></p>
-                                            <p>$ ${MoneyFormart(total)} COP</p>
-                                        </div>`);
+      <div class="infoSubtotal-text">
+          <p><strong>Subtotal</strong></p>
+          <p>$ ${MoneyFormart(total)} COP</p>
+      </div>
+    `);
 
-    $("#total_info").html(`  <p>TOTAL</p>
-                                        <p>$ ${MoneyFormart(total)} COP</p>`);
+    $("#total_info").html(`
+      <p>TOTAL</p>
+      <p>$ ${MoneyFormart(total)} COP</p>
+    `);
 
     $("#btn_continue_market").show();
   } else {
     $(".number_products").html(`<p> 0 </p>`);
     $("#list_products_cart").html(`
-                <div class="no_products__cart">
-                    <h4>Sin productos</h4>
-                </div>`);
+      <div class="no_products__cart">
+          <h4>Sin productos</h4>
+      </div>
+    `);
 
-    $("#total_cart").html(
-      `
-                        <p class="total_cart__subtotal">Subtotal</p>
-                        <p class="total_cart__price">$ 0 COP</p>
-                    `
-    );
+    $("#total_cart").html(`
+      <p class="total_cart__subtotal">Subtotal</p>
+      <p class="total_cart__price">$ 0 COP</p>
+    `);
 
     $("#btn_continue_market").hide();
     $(".cart").hide();
