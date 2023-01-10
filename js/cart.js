@@ -32,6 +32,7 @@ $(document).ready(function () {
       headers.append('Accept', 'application/json');
 
       try {
+        
           // Loader
           $("#btn__finish_bill").html("<div class='lds-ring'><div></div><div></div><div></div><div></div></div>");
             const response = await fetch(URL_API + "/temporalbill.php", {
@@ -45,7 +46,7 @@ $(document).ready(function () {
           });
         
           let json = await response.json();
-
+          console.log(json.state);
           $("#modal_pay").modal('show');
           $("#modal_pay .modal-body").html(json.state);
           
@@ -53,7 +54,7 @@ $(document).ready(function () {
           $("#form__resume__total")[0].reset();
           $(".group-formInput").css("border-color","black");
 
-          localStorage.setItem("Products_market",[]);
+          // localStorage.setItem("Products_market",[]);
           
           $("#btn__finish_bill").html("FINALIZAR COMPRA");
 
