@@ -117,6 +117,12 @@ body {
   margin: 0;
 }
 
+.disabled-link {
+  pointer-events: none;
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
 .cart {
   position: absolute;
   z-index: 10;

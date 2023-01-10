@@ -25,15 +25,12 @@
         $WhereGroup = substr($WhereGroup, 0, -1).' )';
     }
 
-    $sql = 'SELECT
-	            INV.*,
-	            (SELECT Name FROM '.$p1_t1_inventory_sele_c1_products_groups.' WHERE Code = INV.Code_Group) AS Name_Group
-	        FROM '.$p1_t1_inventory_sele.' INV WHERE 
-            (SELECT State FROM '.$p1_t1_warehouse_inventory.' 
-	            WHERE Id_Inventory = INV.Id and Id_Warehouse = 1 ORDER BY FIELD (State,"Active","Erased") LIMIT 1 ) = "Active" 
-                AND INV.isPublicWeb = 1 
-                '.$WhereGroup.' '.$NumItems;
-
+    $sql = 'SELECT INV.*, g.Code AS Name_Group,
+        (SELECT (SELECT COALESCE(SUM(Unit),0) FROM 001_droi_p1_t1_inventory_sale_c2_products_history_units WHERE Code_Item = INV.Id AND Type = "Add") - (SELECT COALESCE(SUM(Unit),0) FROM 001_droi_p1_t1_inventory_sale_c2_products_history_units WHERE Code_Item = INV.Id AND Type = "Remove") AS cantidad) AS cantidad
+        FROM 001_droi_p1_t1_inventory_sele INV
+        JOIN 001_droi_p1_t1_inventory_sele_c1_products_groups g ON g.Code = INV.Code_Group
+        JOIN 001_droi_p1_t1_warehouse_inventory i ON i.Id_Inventory = INV.Id 
+    WHERE i.State = "Active"  AND INV.isPublicWeb = 1'.$WhereGroup.' '.$NumItems;
 
     $qry = mysqli_query($connection, $sql);
 

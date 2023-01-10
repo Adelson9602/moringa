@@ -133,7 +133,7 @@ const showProducts = async (limit = 0, groups = [], pageSize = 12) => {
                 <h5 class="card-title text-center title mb-0">$ ${MoneyFormart(price)}</h5>
                 <hr class="divider bg-c-primary mt-2 mb-2">
                 <div class="d-flex justify-content-around">
-                    <a href="#" class="btn btn-light bg-white btn-car" onclick="addProductMarket(${product.Id})"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <a href="#" class="btn btn-light bg-white btn-car ${Number(product.cantidad) == 0 ? 'disabled-link' : '' }"  onclick="addProductMarket(${product.Id})"><i class="fa-solid fa-cart-shopping"></i></a>
                     <a href="product.html?id_product=${product.Id}" class="btn btn-light bg-white btn-car"><i class="fa-solid fa-eye"></i></a>
                 </div>
             </div>
@@ -149,6 +149,7 @@ const showProducts = async (limit = 0, groups = [], pageSize = 12) => {
 const consultInfoProduct = (id_product) => {
   let Products = JSON.parse(localStorage.getItem("dataProducts"));
   let product = Products.find((Producto) => Producto.Id == id_product);
+  console.log(product.cantidad);
 
   let price =
     product.Price_Distributor > 0 ? product.Price_Distributor : product.Price;
@@ -167,7 +168,7 @@ const consultInfoProduct = (id_product) => {
                 <button type="button" class="button-cant" id="buttoCant-plus" onclick="modUnitsProduct('add')"> +</button>
             </div>
             <div class="productInfo-button">
-                <button type="button" class="button-cantAdd" onclick="addProductMarket(${
+                <button type="button" ${Number(product.cantidad) == 0 ? 'disabled' : '' } class="button-cantAdd ${Number(product.cantidad) == 0 ? 'disabled-link' : '' }" onclick="addProductMarket(${
                   product.Id
                 }, $('#cant').val())"> 
                     <i class="fa-solid fa-cart-plus"></i> Añadir al carrito
@@ -313,7 +314,6 @@ const updateProductMarketCant = (id_product, value) => {
 
 const loadProductsMarketCart = () => {
   $("#list_products_cart_total").html("");
-
   if (Products_market.length > 0) {
     let total = 0;
     let subtotal = 0;
